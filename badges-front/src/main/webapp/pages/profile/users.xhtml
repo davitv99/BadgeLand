@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Users</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:form id="updateprofile" enctype="multipart/form-data" prependId="false">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12">
+                    <div class="card">
+                        <p:dataTable var="list" value="#{accountDataBean.accountList}">                        
+                            <p:column headerText="Name">
+                                <h:outputText value="#{list.name}"/>
+                            </p:column>
+                            <p:column headerText="Email">
+                                <h:outputText value="#{list.email}"/>
+                            </p:column>
+                            <p:column headerText="Phone">
+                                <h:outputText value="#{list.phone}"/>
+                            </p:column>
+                            <p:column headerText="Role">
+                                <h:outputText value="#{list.role}"/>
+                            </p:column>
+                            <p:column headerText="Edit">
+                                <p:commandButton type="submit" ajax="false" icon="fa fa-save"
+                                                 value="Edit User" action="#{accountDataBean.findUser(list.id)}"/>
+                            </p:column>
+                            <p:column headerText="Delete">
+                                <p:commandButton type="submit" ajax="false" icon="fa fa-save"
+                                                 value="Delete User" rendered="#{!list.id.equals(sessionContext.user.id)}"
+                                                 action="#{accountDataBean.deleteAccount(list.id)}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

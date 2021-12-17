@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Profile</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:body styleClass="login-body #{guestPreferences.inputStyleClass}">
+            <h:form id="registerForm">
+                <p:growl/>
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-4"></div>
+                    <div class="p-col-12 p-md-4">
+                        <div class="card card-w-title">
+                            <div class="p-grid">
+
+                                <div class="p-col-12 p-md-12">
+                                    <div class="p-grid">
+                                        <h2>Add new Account</h2>
+                                        <div class="p-col-12 p-md-12">
+                                            <p:outputLabel for="@next" value="Name"/>
+                                            <p:inputText style="width: 100%;" value="#{registerBean.register.name}"
+                                                         id="firstname"
+                                                         placeholder="#{i18n.firstname}"
+                                                         required="true" requiredMessage="#{i18n.mandatory}">
+                                                <f:validateLength maximum="50"/>
+                                            </p:inputText>
+
+                                        </div>
+                                        <div class="p-col-12 p-md-12">
+                                            <p:outputLabel for="@next" value="E-mail"/>
+                                            <p:inputText style="width: 100%;" value="#{registerBean.register.email}"
+                                                         id="email"
+                                                         placeholder="#{i18n.email}" required="true"
+                                                         requiredMessage="#{i18n.mandatory}">
+                                                <f:validateLength maximum="50"/>
+                                            </p:inputText>
+
+                                        </div>
+                                        <div class="p-col-12 p-md-12">
+                                            <p:outputLabel for="@next" value="Phone"/>
+                                            <p:inputText style="width: 100%;" value="#{registerBean.register.phone}"
+                                                         id="phone"
+                                                         placeholder="#{i18n.phone}" required="true"
+                                                         requiredMessage="#{i18n.mandatory}">
+                                                <f:validateLength maximum="50"/>
+                                            </p:inputText>
+
+                                        </div>
+                                        <div class="p-col-12 p-md-12">
+                                            <p:outputLabel for="@next" value="Role"/>
+                                            <p:inputText style="width: 100%;" value="#{registerBean.register.role}"
+                                                         id="role"
+                                                         placeholder="#{i18n.role}" required="true"
+                                                         requiredMessage="#{i18n.mandatory}">
+                                                <f:validateLength maximum="50"/>
+                                            </p:inputText>
+
+                                        </div>
+                                        <div class="p-col-12 p-md-12">
+                                            <p:outputLabel for="@next" value="Password"/>
+                                            <p:password style="width: 100%;" value="#{registerBean.register.password}"
+                                                        id="password" placeholder="#{i18n.password}" required="true"
+                                                        requiredMessage="#{i18n.mandatory}">
+                                                <f:validateLength minimum="6" maximum="20"/>
+                                            </p:password>
+
+                                        </div>
+                                        <div class="p-col-12 p-md-12">
+                                            <p:outputLabel for="@next" value="Confirm password"/>
+                                            <p:password style="width: 100%;" id="confirmPassword"
+                                                        requiredMessage="#{i18n.mandatory}" required="true"
+                                                        placeholder="#{i18n.confirm}" redisplay="true">
+                                                <f:validateLength minimum="6" maximum="20"/>
+                                            </p:password>
+                                        </div>
+                                        <div class="p-col-12 p-md-12">
+
+                                            <p:commandButton style="width: 100%;" ajax="false"
+                                                             action="#{registerBean.registerAccount()}"
+                                                             icon="pi pi-save"
+                                                             update="registerForm" value="#{i18n.signup}"/>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </h:form>
+        </h:body>
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico"
+              type="image/x-icon"></link>
+        <link rel="icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico"
+              type="image/x-icon"></link>
+        <title>Duty</title>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/diamond-layout/css/primeicons-static.css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/diamond-layout/css/landing.css"/>
+        <link rel="stylesheet" href="#{request.contextPath}/resources/diamond-layout/css/primeflex.min.css"/>
+    </f:facet>
+    <title>Axele Support Squad</title>
+
+</h:head>
+
+<h:body class="landing-body">
+
+
+    <div class="landing-wrapper">
+        <div id="home" class="landing-header">
+
+            <div class="landing-header-content">
+                <div class="header-text">
+                    <h1>Axele Support</h1>
+                    <p>From Zero To Hero
+                    </p>
+
+                    <h1>For Admin</h1>
+                    <p:button class="landing-btn" rendered="#{sessionContext.user.id == null}" outcome="/login"
+                              value="Sign In"/>
+                    <p:button class="landing-btn" rendered="#{sessionContext.user.id == null}" outcome="/register"
+                              value="Sign Up"/>
+
+                    <p:button class="landing-btn" rendered="#{sessionContext.user.id != null}"
+                              outcome="/pages/profile/profile" value="Profile"/>
+
+                </div>
+
+                <div class="header-text">
+                    <h1>For Users</h1>
+
+                    <p:button class="landing-btn"
+                              value="View Current Schedule"/>
+
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var wrapper = document.querySelector('.landing-wrapper');
+        var body = document.querySelector('.landing-body');
+        var menuitems = document.querySelectorAll('.landing-menu-item');
+
+        function openMenu() {
+            wrapper.classList.add('landing-menu-active');
+            body.classList.add('block-scroll');
+        }
+
+        function closeMenu() {
+            wrapper.classList.remove('landing-menu-active');
+            body.classList.remove('block-scroll');
+        }
+
+        for (var i = 0; i < menuitems.length; i++) {
+            var menuitem = menuitems[i];
+            menuitem.addEventListener('click', function (e) {
+                closeMenu();
+            });
+        }
+
+        var links = document.querySelectorAll('a[href^="#"]');
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            link.addEventListener('click', function (e) {
+                if (document.documentElement.scrollIntoView) {
+                    e.preventDefault();
+                    document.getElementById(event.currentTarget.getAttribute('href').substring(1)).scrollIntoView({
+                        behavior: 'smooth',
+                        offsetTop: 20
+                    });
+                }
+            });
+        }
+
+        window.onload = function () {
+            document.onclick = function (e) {
+                if (e.target.className !== 'pi pi-bars') {
+                    closeMenu();
+                }
+            };
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            let lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+            let active = false;
+
+            const lazyLoad = function () {
+                if (active === false) {
+                    active = true;
+
+                    setTimeout(function () {
+                        lazyImages.forEach(function (lazyImage) {
+                            if ((lazyImage.getBoundingClientRect().top <= window.innerHeight && lazyImage.getBoundingClientRect().bottom >= 0) && getComputedStyle(lazyImage).display !== "none") {
+                                lazyImage.src = lazyImage.dataset.src;
+                                lazyImage.classList.remove("lazy");
+
+                                setTimeout(function () {
+                                    lazyImage.classList.add("animated");
+                                }, 150);
+
+                                lazyImages = lazyImages.filter(function (image) {
+                                    return image !== lazyImage;
+                                });
+
+                                if (lazyImages.length === 0) {
+                                    document.removeEventListener("scroll", lazyLoad);
+                                    window.removeEventListener("resize", lazyLoad);
+                                    window.removeEventListener("orientationchange", lazyLoad);
+                                }
+                            }
+                        });
+
+                        active = false;
+                    }, 0);
+                }
+            };
+            lazyLoad();
+            document.addEventListener("scroll", lazyLoad);
+            window.addEventListener("resize", lazyLoad);
+            window.addEventListener("orientationchange", lazyLoad);
+        });
+        //]]>
+    </script>
+
+
+</h:body>
+</html>

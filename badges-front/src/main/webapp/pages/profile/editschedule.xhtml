@@ -1,0 +1,135 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Schedule</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:form id="updateSchedule" enctype="multipart/form-data" prependId="false">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12">
+
+                    <div class="p-col-12">
+                        <div class="card card-w-title">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-12">
+                                    <h1>Update Selected Schedule Day</h1>
+                                    <p:growl id="messages" showDetail="true" life="2000"/>
+                                </div>
+
+
+                                <p:dataTable id="supportSquad" var="list" value="#{scheduleDataBean.supportSquad}"
+                                             editable="true">
+                                    <p:ajax event="rowEdit"
+                                            listener="#{scheduleDataBean.updateSchedule(scheduleDataBean.supportSquad)}"/>
+                                    <p:ajax event="rowEditCancel"/>
+                                    <p:column style="width: 1%;">
+                                        <p:commandButton
+                                                rendered="#{(list.mainMember.id != null)}"
+                                                type="submit" ajax="false" icon="pi pi-eye"
+                                                action="#{accountDataBean.findUser(list.mainMember.id)}"/>
+                                    </p:column>
+                                    <p:column headerText="Support Account" style="width: 10%">
+
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{list.mainMember.name}"
+                                                />
+
+                                            </f:facet>
+
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{list.mainMember}" style="width: 100%"
+                                                                 filterMatchMode="contains">
+                                                    <f:converter converterId="feConverter"/>
+                                                    <f:selectItems value="#{scheduleDataBean.accounts}" var="account"
+                                                                   itemLabel="#{account.name}" itemValue="#{account}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+
+
+                                    </p:column>
+
+
+                                    <p:column headerText="Duty Time" style="width: 5%">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{list.dutyType}"/></f:facet>
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{list.dutyType}" style="width:100%"
+                                                                 filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="Full Day" itemValue="Full Day"/>
+                                                    <f:selectItem itemLabel="Part Day" itemValue="Part Day"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column style="width: 1%"> <p:commandButton
+                                            rendered="#{list.backupMember.id != null}"
+                                            type="submit" ajax="false" icon="pi pi-eye"
+                                            action="#{accountDataBean.findUser(list.backupMember.id)}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Backup Account" style="width: 10%">
+                                        <p:cellEditor>
+
+                                            <f:facet name="output">
+
+                                                <h:outputText value="#{list.backupMember.name}"/>
+                                            </f:facet>
+
+                                            <f:facet name="input">
+                                                <p:selectOneMenu value="#{list.backupMember}" style="width: 100%"
+                                                                 styleClass="pull-left" filterMatchMode="contains">
+                                                    <f:converter converterId="feConverter"/>
+                                                    <f:selectItems value="#{scheduleDataBean.accounts}" var="account"
+                                                                   itemLabel="#{account.name}" itemValue="#{account}"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+
+                                    </p:column>
+
+                                    <p:column headerText="Backup Status" style="width: 5%">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText
+                                                    value="#{list.backupStatus}"/></f:facet>
+                                            <f:facet name="input">
+
+                                                <p:selectOneMenu value="#{list.backupStatus}" style="width:100%"
+                                                                 filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="Active" itemValue="Active"/>
+                                                    <f:selectItem itemLabel="Inactive" itemValue="Inactive"/>
+                                                </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column style="width:1%">
+
+                                            <p:rowEditor/></p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

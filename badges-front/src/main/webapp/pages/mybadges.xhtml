@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template.xhtml">
+
+
+    <ui:define name="title">Users</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:form id="schedules" enctype="multipart/form-data" prependId="false">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12">
+                    <div class="card">
+                        <p:outputPanel id="mydata">
+                            <p:dataTable id="scheduletable" widgetVar="scheduletable" var="list" value="#{scheduleDataBean.dutyModelWeeks}">
+
+                                <p:column headerText="Start">
+                                    <h:outputText value="#{list.start}"/>
+                                 </p:column>
+                                <p:column headerText="End">
+                                    <h:outputText value="#{list.end}"/>
+                                </p:column>
+                                <p:column headerText="View">
+                                    <p:commandButton type="submit" ajax="false" immediate="true" icon="pi pi-eye"
+                                                     action="#{scheduleDataBean.findSchedule(list.start)}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+
+                        <div class="p-grid p-mt-3">
+                            <div class="p-col-12">
+                                <p:panel id="adder">
+                                    <p:outputLabel for="next" value="Start Date" style="font-weight: bold;"/>
+                                    <p:calendar id="next" placeholder="#{i18n.start}" value="#{newscheduleBean.start}"
+                                                required="true" requiredMessage="Date is required" pattern="yyyy-MM-dd" />
+
+                                    <p:commandButton value="Add new row" update="schedules" process="schedules"
+                                                     action="#{newscheduleBean.addSchedule()}"/>
+                                </p:panel>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Profile</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+    <ui:define name="content" style="width:72%">
+        <p:growl/>
+
+        <h:form id="dashboard" enctype="multipart/form-data" prependId="false" >
+            <div class="p-grid">
+                <div class="p-col-12 p-md-3">
+
+                    <div class="p-col-12">
+                        <div class="card card-w-title">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-12">
+                                    <h1>#{i18n.profileupdate}</h1>
+                                    <p:growl id="messages" showDetail="true" life="2000"/>
+                                </div>
+
+                                <h1>This is dashboard</h1>>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

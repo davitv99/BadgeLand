@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Profile</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:form id="updateprofile" enctype="multipart/form-data" prependId="false">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-3">
+
+                    <div class="p-col-12">
+                        <div class="card card-w-title">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-12">
+                                    <h1>#{i18n.profileupdate}</h1>
+                                    <p:growl id="messages" showDetail="true" life="2000"/>
+                                </div>
+
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="name" value="Name" style="font-weight: bold;"/>
+                                    <p:inputText id="name" placeholder="First name" title="name" required="true"
+                                                 requiredMessage="#{i18n.mandatory}" style="width: 100%;"
+                                                 value="#{profileBean.userModel.name}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="mail" value="E-mail" style="font-weight: bold;"/>
+                                    <p:inputText placeholder="#{i18n.email}" id="mail" title="#{i18n.email}"
+                                                 style="width: 100%;"
+                                                 required="true" requiredMessage="#{i18n.mandatory}" readonly="false"
+                                                 value="#{profileBean.userModel.email}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="phone" value="Phone" style="font-weight: bold;"/>
+                                    <p:inputText id="phone" placeholder="Phone" title="phone" required="true"
+                                                 requiredMessage="#{i18n.mandatory}" style="width: 100%;"
+                                                 value="#{profileBean.userModel.phone}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="role" value="Role" style="font-weight: bold;"/>
+                                    <p:inputText id="role" placeholder="Role" title="role" required="true"
+                                                 requiredMessage="#{i18n.mandatory}" style="width: 100%;"
+                                                 value="#{profileBean.userModel.role}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:commandButton type="submit" ajax="false" icon="pi pi-save" value="#{i18n.save}"
+                                                     style="width: 100%;"
+                                                     action="#{profileBean.updateProfile()}"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

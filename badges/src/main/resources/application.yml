@@ -1,0 +1,12 @@
+server:
+    port: 9095
+spring:
+    data:
+        mongodb:
+            uri: mongodb://auagroup:se2021@mongodb:27017/badges?authSource=admin
+    main:
+        banner-mode: 'off'
+    output:
+        ansi:
+            enabled: ALWAYS
+

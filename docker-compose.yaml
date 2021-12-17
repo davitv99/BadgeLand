@@ -1,0 +1,61 @@
+version: "3.3"
+
+services:
+    
+
+    
+  mongodb:      
+    build: ./mongodb
+    image: mongodb
+    container_name: mongodb    
+    volumes:
+      - ~/volumes/socnetdb/mongo/data:/data/db
+      - ~/volumes/socnetdb/mongo/logs:/data/logs
+    ports:
+      - 27017:27017
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=auagroup
+      - MONGO_INITDB_ROOT_PASSWORD=se2021     
+    command: mongod
+    networks:
+      mnet:
+        aliases:
+          - mongodb
+ 
+     
+  badges:
+    image: badges     
+    build: ./badges
+    container_name: badges   
+    links:
+      - mongodb
+    ports:
+      - 9095:9095 
+    depends_on:
+      - mongodb
+    deploy:
+      replicas: 1
+    networks:
+     - mnet
+  
+  badges-front:
+    image: badges-front
+    build: ./badges-front
+    container_name: badges-front
+    links:
+      - badges
+    environment:
+      - JVM_OPTS=-Xmx4g -Xms1g -XX:MaxPermSize=2g
+      - CATALINA_OPTS=-Xmx4g -Xms1g -XX:MaxPermSize=2g
+    volumes:
+      - ../data/micro/realtime/logs/:/opt/realtime/logs
+    ports:
+      - '9096:9096'
+    networks:
+      - mnet
+      
+      
+networks:
+  mnet:
+    driver: bridge

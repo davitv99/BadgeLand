@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Profile</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:form id="updateprofile" enctype="multipart/form-data" prependId="false">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-4">
+
+
+                    <div class="p-col-12">
+                        <div class="card card-w-title">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-12">
+                                    <h1>Update Selected User</h1>
+                                    <p:growl id="messages" showDetail="true" life="2000"/>
+                                </div>
+
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="@next" value="Name" style="font-weight: bold;"/>
+                                    <p:inputText id="name" placeholder="First name" title="name" required="true"
+                                                 requiredMessage="#{i18n.mandatory}" style="width: 100%;"
+                                                 value="#{accountDataBean.account.name}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="@next" value="E-mail" style="font-weight: bold;"/>
+                                    <p:inputText placeholder="#{i18n.email}" id="mail" title="#{i18n.email}"
+                                                 required="true" requiredMessage="#{i18n.mandatory}" readonly="false" style="width: 100%;"
+                                                 value="#{accountDataBean.account.email}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="@next" value="Phone" style="font-weight: bold;"/>
+                                    <p:inputText placeholder="#{i18n.phone}" id="phone" title="#{i18n.phone}"
+                                                 required="true" requiredMessage="#{i18n.mandatory}" readonly="false" style="width: 100%;"
+                                                 value="#{accountDataBean.account.phone}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:outputLabel for="@next" value="Role" style="font-weight: bold;"/>
+                                    <p:inputText placeholder="#{i18n.role}" id="role" title="#{i18n.role}"
+                                                 required="true" requiredMessage="#{i18n.mandatory}" readonly="false" style="width: 100%;"
+                                                 value="#{accountDataBean.account.role}">
+                                        <f:validateRequired/>
+                                        <f:validateLength maximum="100"/>
+                                    </p:inputText>
+                                </div>
+
+
+                                <div class="p-col-12 p-md-12">
+                                    <p:commandButton type="submit" ajax="false" icon="fa fa-save" value="Update Account"
+                                                     action="#{accountDataBean.updateAccount()}"/>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Daily Schedule</ui:define>
+
+    <ui:param name="viewname" value="Daily Schedule"/>
+
+
+    <ui:define name="content">
+        <p:growl/>
+
+        <h:form id="updateprofile" enctype="multipart/form-data" prependId="false">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-12">
+                    <div class="card">
+
+                        <p:dataTable var="list" value="#{scheduleDataBean.dailyDutys}">
+                            <p:column headerText="Weekday">
+                                <h:outputText value="#{list.dayOfWeek}"/>
+                            </p:column>
+
+                            <p:column headerText="Support Squad">
+                                <p:repeat var="account" value="#{list.supportTeam}">
+                                <h:outputText value="Name: #{account.mainMember.name}  |  Backup: #{account.backupMember.name}"/><br/>
+                                </p:repeat>
+                            </p:column>
+                            <p:column headerText="View">
+                                <p:commandButton type="submit" ajax="false" icon="pi pi-eye"
+                                                 action="#{scheduleDataBean.editSchedule(list)}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        </div>
+                    </div>
+            </div>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

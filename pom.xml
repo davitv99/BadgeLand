@@ -7,8 +7,8 @@
     <packaging>pom</packaging>
     <modules>     
         
-        <module>badges</module>
-        <module>badges-front</module>
+        <module>badges-backend</module>
+        <module>badgeland</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

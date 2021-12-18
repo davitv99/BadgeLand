@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico"
+              type="image/x-icon"></link>
+        <link rel="icon" href="#{request.contextPath}/resources/diamond-layout/images/favicon.ico"
+              type="image/x-icon"></link>
+    </f:facet>
+    <title>Sign Up</title>
+</h:head>
+<style>
+    .login-header {
+
+        font-style: normal;
+        font-weight: 600;
+        font-size: 24px;
+        text-align: center;
+        letter-spacing: 1px;
+        color: #22B8C6;
+
+    }
+
+    .p-text {
+
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        text-align: center;
+        color: #778899;
+    }
+
+    .outputLabels {
+        alignment: left;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        letter-spacing: 1px;
+        color: #778899;
+    }
+
+    .inputboxes {
+        width: 360px;
+        height: 48px;
+    }
+</style>
+
+
+<h:body styleClass="login-body #{guestPreferences.inputStyleClass}">
+    <h:form id="loginForm" prependId="false" rendered="#{sessionContext.user.id == null}">
+        <p:growl/>
+        <div class="login-wrapper ">
+
+            <div class="login-image p-col-12 p-md-6" style="width: 50%">
+                <div class="login-image-content">
+
+                </div>
+
+            </div>
+            <div class="login-panel p-col-12 p-md-6"
+                 style="justify-content: space-evenly; background-color: white ; width: 50%">
+
+                <div class="login-form">
+                    <h2 class="login-header">Sign up</h2>
+                    <div class="p-col-12 p-md-12" style="margin-bottom: 22px">
+                        <p:outputLabel class="p-text" value="Hello! Please provide info to create an account."/>
+                    </div>
+
+                    <div class="p-col-12 p-md-12">
+
+                        <div class="p-grid" style="text-align: left;">
+
+
+                            <div class="p-col-12 p-md-12">
+                                <p:outputLabel for="name" styleClass="p-d-block outputLabels" value="Name"/><br/>
+                                <p:inputText styleClass="inputboxes" value="#{registerBean.register.name}" id="name"
+                                             required="true"
+                                             requiredMessage="#{i18n.mandatory}">
+                                    <f:validateLength maximum="50"/>
+                                </p:inputText> <br/>
+                            </div>
+
+                            <div class="p-col-12 p-md-12" style="margin-top:55px;">
+                                <h:form>
+                                    <p:selectOneButton value="#{registerBean.register.gender}">
+                                        <f:selectItem itemLabel="MALE" itemValue="Male"/>
+                                        <f:selectItem itemLabel="FEMALE" itemValue="Female"/>
+                                    </p:selectOneButton>
+                                </h:form>
+                            </div>
+
+                            <div class="p-col-12 p-md-12" style="margin-top:55px;">
+                                <p:outputLabel for="email" styleClass="p-d-block outputLabels" value="Email"/><br/>
+                                <p:inputText styleClass="inputboxes" value="#{registerBean.register.email}" id="email"
+                                             required="true"
+                                             requiredMessage="#{i18n.mandatory}">
+
+                                    <f:validateLength maximum="50"/>
+                                </p:inputText> <br/>
+                            </div>
+
+
+                            <div class="p-col-12 p-md-12" style="margin-top:55px;">
+                                <p:outputLabel for="passwd" styleClass="p-d-block outputLabels" value="Password"/><br/>
+                                <p:password styleClass="inputboxes" value="#{loginBean.loginModel.password}" id="passwd"
+                                            required="true" match="cnfpasswd" requiredMessage="#{i18n.mandatory}">
+                                    <f:validateRequired/>
+                                    <f:validateLength maximum="50"/>
+                                </p:password><br/>
+                            </div>
+
+                            <div class="p-col-12 p-md-12" style="margin-top:55px;">
+                                <p:outputLabel for="cnfpasswd" styleClass="p-d-block outputLabels"
+                                               value="Confirm Password"/><br/>
+                                <p:password id="cnfpasswd"
+                                            styleClass="inputboxes"
+                                            required="true" requiredMessage="#{i18n.mandatory}">
+                                    <f:validateRequired/>
+                                    <f:validateLength maximum="50"/>
+                                </p:password><br/>
+                            </div>
+                            <div class="p-col-12 p-md-12">
+                                <p:commandButton ajax="true" action="#{loginBean.loginUser()}" icon="fa fa-sign-in"
+                                                 update="loginForm" value="#{i18n.login}"
+                                                 style="width: 100%;height: 48px;margin-top: 44px;background: #22B8C6;"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p style="color: #778899; margin-top: 24px">Have an account? <a href="login.jsf"
+                                                                                    style="color: #22B8C6">Login</a></p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </h:form>
+
+    <h:outputStylesheet id="layout-scheme" name="css/layout-#{guestPreferences.scheme}.css" library="diamond-layout"/>
+    <h:outputStylesheet name="css/primeicons.css" library="diamond-layout"/>
+</h:body>
+
+</html>

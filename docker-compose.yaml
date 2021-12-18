@@ -24,10 +24,10 @@ services:
           - mongodb
  
      
-  badges:
-    image: badges     
-    build: ./badges
-    container_name: badges   
+  badges-backend:
+    image: badges-backend
+    build: ./badges-backend
+    container_name: badges-backend
     links:
       - mongodb
     ports:
@@ -39,12 +39,12 @@ services:
     networks:
      - mnet
   
-  badges-front:
-    image: badges-front
-    build: ./badges-front
-    container_name: badges-front
+  badgeland:
+    image: badgeland
+    build: ./badgeland
+    container_name: badgeland
     links:
-      - badges
+      - badges-backend
     environment:
       - JVM_OPTS=-Xmx4g -Xms1g -XX:MaxPermSize=2g
       - CATALINA_OPTS=-Xmx4g -Xms1g -XX:MaxPermSize=2g

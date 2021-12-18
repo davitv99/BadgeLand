@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+                xmlns:d="http://primefaces.org/diamond">
+<style>
+.appLogoNameBadge{
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 41px;
+    color: #22B8C6;
+}
+    .appNameLand{
+
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 41px;
+        color: #FCFCFC;
+    }
+    .sideItems{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 19px;
+        letter-spacing: 1px;
+        color: #B4BEC7;
+    }
+
+</style>
+    <div class="layout-sidebar" style="background: #021F2E;width: 236px">
+        <h:link class="logo" outcome="/pages/dashboard">
+            <span class="appLogoNameBadge">Badge</span><span class="appNameLand">Land</span>
+        </h:link>
+        <div class="layout-menu-container">
+            <h:form id="sidebar-form">
+                <d:menu widgetVar="diamondMenuWidget">
+
+
+<!--                        <p:menuitem id="myBadges" value="My Badges"-->
+<!--                                    outcome="/pages/myBadges"/>-->
+<!--                        <p:menuitem id="profile" value="My Profile"  outcome="/pages/profile/profile"/>-->
+
+
+                </d:menu>
+            </h:form>
+        </div>
+    </div>
+</ui:composition>

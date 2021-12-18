@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="title">Dashboard</ui:define>
+
+    <ui:param name="viewname" value="Profile"/>
+    <ui:define name="content">
+        <p:growl/>
+        <style>
+            .badges-summary{
+
+                font-style: normal;
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 27px;
+                letter-spacing: 1px;
+                color: #778899;
+            }
+
+            .title {
+
+                font-style: normal;
+                font-weight: bold;
+                font-size: 20px;
+                line-height: 27px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: #334455;
+            }
+
+            .boy {
+                background-image: url("#{resource['dashboard/dashboard-boy.png']}");
+                justify-content: center;
+                width: 95%;
+            }
+
+            .girl {
+                background-image: url("#{resource['dashboard/dashboard-girl.png']}");
+                justify-content: center;
+                width: 95%;
+            }
+
+            .greeting {
+
+                font-style: normal;
+                font-weight: bold;
+                font-size: 40px;
+                line-height: 54px;
+                letter-spacing: 1px;
+                color: black;
+            }
+
+            .introduction {
+
+
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 22px;
+                /* identical to box height */
+                letter-spacing: 1px;
+
+                color: black;
+            }
+            .badge-status-summary{
+                border-radius: 10px;
+                width: 316px;
+                height: 100px;
+            }
+            .badge-number{
+                background: #FFFFFF;
+                border-radius: 10px;
+                width: 80px;
+                height: 80px;
+
+            }
+
+        </style>
+        <h:form id="dashboard" enctype="multipart/form-data" prependId="false">
+            <div>
+                <h1 class="title">Dashboard</h1>
+            </div>
+            <div>
+                <h:form styleClass="boy" rendered="#{sessionContext.user.gender == 'Male'}">
+                    <h1 class="greeting">Hi, #{sessionContext.user.name}</h1>
+                    <br/>
+                    <h2 class="introduction">Ready to start your day with a new badge?</h2>
+                </h:form>
+                <h:form styleClass="girl" rendered="#{sessionContext.user.gender == 'Female'}">
+                </h:form>
+            </div>
+
+            <div>
+                <h1 class="badges-summary">Badges</h1>
+                <div class="badge-status-summary" style="background: #1ED392">
+                    <div><h1 style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">RECEIVED</h1>
+                    </div>
+                    <div class="badge-number">#{dashboardBean.dashboardSummary.receivedBadges}</div>
+
+                </div>
+
+                <div>
+                </div>
+
+                <div class="badge-status-summary" style="background: #FFAA2E">
+                    <div><h1 style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">PENDING</h1>
+                    </div>
+                    <div class="badge-number">#{dashboardBean.dashboardSummary.pendingBadges}</div>
+
+                </div>
+
+                <div >
+                </div>
+
+                <div class="badge-status-summary" style="background: #F8174D">
+                    <div><h1 style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">REJECTED</h1>
+                    </div>
+                    <div class="badge-number">#{dashboardBean.dashboardSummary.rejectedBadges}</div>
+                </div>
+
+            </div>
+        </h:form>
+
+
+    </ui:define>
+</ui:composition>

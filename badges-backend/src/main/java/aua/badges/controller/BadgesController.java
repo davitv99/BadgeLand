@@ -37,7 +37,7 @@ public class BadgesController {
     private SecurityService securityService;
     @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createBadge(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             final @RequestParam(name = "badgeName", required = true) String badgeName,
             final @RequestParam(name = "badgeLevel", required = true) Integer badgeLevel,
             final @RequestParam(name = "badgeIconId", required = true) String iconId,
@@ -54,7 +54,7 @@ public class BadgesController {
 
     @DeleteMapping(path = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity deleteBadge(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             @RequestParam(name = "badgeId", required = true) String badgeId,
             @RequestParam(name = "userRole", required = true) UserRole role
     ) {
@@ -76,8 +76,8 @@ public class BadgesController {
 
     @GetMapping(path = "/find/current/badges/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findExistingUserBadges(
-            final @RequestParam(name = "authorization",required = true) String token,
-            @RequestParam(name = "user_Id", required = true) String userId
+            final @RequestHeader(name = "authorization",required = true) String token,
+            @RequestParam(name = "userId", required = true) String userId
     ) {
         if(!securityService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -95,8 +95,8 @@ public class BadgesController {
 
     @GetMapping(path = "/find/pending/rejected/accepted/badges/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllUserBadges(
-            final @RequestParam(name = "authorization",required = true) String token,
-            @RequestParam(name = "user_Id", required = true) String userId
+            final @RequestHeader(name = "authorization",required = true) String token,
+            @RequestParam(name = "userId", required = true) String userId
     ) {
         if(!securityService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -114,7 +114,7 @@ public class BadgesController {
 
     @GetMapping(path = "/find/unassigned/badges", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllUnassignedBadges(
-            final @RequestParam(name = "authorization",required = true) String token
+            final @RequestHeader(name = "authorization",required = true) String token
             ) {
         if(!securityService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -127,7 +127,7 @@ public class BadgesController {
     }
     @PutMapping(path = "/edit/badge", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity editBadge(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             final @RequestParam(name = "badgeName",required = false) String name,
             final @RequestParam(name = "badgeLevel",required = false) Integer level,
             final @RequestParam(name = "badgeId",required = true) String id,

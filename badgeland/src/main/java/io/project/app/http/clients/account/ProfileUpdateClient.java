@@ -8,6 +8,7 @@ import io.project.app.dto.ImageDTO;
 import io.project.app.dto.UserDTO;
 import io.project.app.dto.UserGeneralInfoDTO;
 import io.project.app.requests.UserPasswordChangeRequest;
+import io.project.app.requests.UserUpdateRequest;
 import io.project.app.security.SessionContext;
 import io.project.app.util.FrontendConstants;
 import io.project.app.util.FrontendGsonConverter;
@@ -89,25 +90,20 @@ public class ProfileUpdateClient implements Serializable {
         return status;
     }
 
-    public UserGeneralInfoDTO updateAccountProfile(String id, String about, String name, ImageDTO avatar) {
+    public UserGeneralInfoDTO updateAccountProfile(UserUpdateRequest userUpdateRequest) {
 
         UserGeneralInfoDTO returnedModel = new UserGeneralInfoDTO();
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-
+            String toJson = GsonConverter.toJson(userUpdateRequest);
+            StringEntity params = new StringEntity(toJson, "UTF-8");
             HttpPut request = new HttpPut(service_path + "/edit/user");
             request.addHeader("authorization", sessionContext.getSessionToken());
-            request.addHeader("about",id);
-            request.addHeader("user_id",about);
-            request.addHeader("userName",name);
+            request.setEntity(params);
             request.addHeader("content-type", FrontendConstants.CONTENT_TYPE_JSON);
             request.addHeader("charset", "UTF-8");
-            if(avatar.getFileContent() !=null){
-                String toJson = GsonConverter.toJson(avatar);
-                StringEntity params = new StringEntity(toJson, "UTF-8");
-                request.setEntity(params);
-            }
+
             long startTime = System.currentTimeMillis();
             LOGGER.info("request " + request.toString());
             try (CloseableHttpResponse httpResponse = httpClient.execute(request)) {
@@ -136,9 +132,8 @@ public class ProfileUpdateClient implements Serializable {
         UserGeneralInfoDTO returnedModel = new UserGeneralInfoDTO();
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpGet request = new HttpGet(service_path + "/user/general/info");
+            HttpGet request = new HttpGet(service_path + "/user/general/info?userId=" + userId);
             request.addHeader("authorization", sessionContext.getSessionToken());
-            request.addHeader("user_id", userId);
             long startTime = System.currentTimeMillis();
             LOGGER.info("request " + request.toString());
             try (CloseableHttpResponse httpResponse = httpClient.execute(request)) {

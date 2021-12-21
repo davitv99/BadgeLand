@@ -36,8 +36,8 @@ public class AssignmentController {
     private SecurityService securityService;
     @PostMapping(path = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity createAssignmentRequest(
-            final @RequestParam(name = "authorization",required = true) String token,
-            @RequestParam(name = "user_id") String userId,
+            final @RequestHeader(name = "authorization",required = true) String token,
+            @RequestParam(name = "userId") String userId,
             @RequestParam(name = "badgeId") String badgeId) {
         if(!securityService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -55,7 +55,7 @@ public class AssignmentController {
     }
     @PutMapping(path="/accept/request", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity acceptAssignmentRequest(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             @RequestParam(name = "assignmentId") String assignmentId,
             @RequestParam(name = "userRole") UserRole role
     ) {
@@ -78,10 +78,10 @@ public class AssignmentController {
 
     @PutMapping(path="/assign/badge/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity asssignBadgeToUser(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             @RequestParam(name = "badgeId") String badgeId,
             @RequestParam(name = "userRole") UserRole role,
-            @RequestParam(name = "user_id") String userId
+            @RequestParam(name = "userId") String userId
     ) {
         if(!securityService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -105,7 +105,7 @@ public class AssignmentController {
 
     @PutMapping(path="/unassign/badge/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity unassignBadgeFromUser(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             @RequestParam(name = "badgeId") String badgeId,
             @RequestParam(name = "userRole") UserRole role
     ) {

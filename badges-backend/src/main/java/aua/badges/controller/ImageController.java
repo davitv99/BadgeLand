@@ -54,7 +54,7 @@ public class ImageController {
 
     @GetMapping(path = "/get/badge/logo/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllBadgeLogos(
-            final @RequestParam(name = "authorization",required = true) String token
+            final @RequestHeader(name = "authorization",required = true) String token
             ) {
         if(!securityService.validateToken(token)){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");

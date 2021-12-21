@@ -12,7 +12,7 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-public class UserPasswordChangeRequest implements Serializable {
+public class UserPasswordChangeRequest{
 private String id;
 private String password;
 }

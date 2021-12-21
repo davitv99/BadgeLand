@@ -12,7 +12,7 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-public class UserLoginRequest implements Serializable {
+public class UserLoginRequest {
     private String email;
     private String password;
 }

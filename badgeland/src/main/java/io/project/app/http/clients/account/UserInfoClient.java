@@ -53,10 +53,9 @@ public class UserInfoClient implements Serializable {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
 
-            HttpGet request = new HttpGet(service_path + "/user/dashboard/summary");
+            HttpGet request = new HttpGet(service_path + "/user/dashboard/summary?userId=" + id);
             log.info("Token is" + token);
             request.addHeader("authorization", token);
-            request.addHeader("user_id", id);
             request.addHeader("content-type", FrontendConstants.CONTENT_TYPE_JSON);
             request.addHeader("charset", "UTF-8");
             long startTime = System.currentTimeMillis();

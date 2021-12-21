@@ -6,6 +6,7 @@ import aua.badges.model.User;
 import aua.badges.requests.UserCreationRequest;
 import aua.badges.requests.UserLoginRequest;
 import aua.badges.requests.UserPasswordChangeRequest;
+import aua.badges.requests.UserUpdateRequest;
 import aua.badges.responses.LoginResponse;
 import aua.badges.responses.RegisterResponse;
 import aua.badges.security.SecurityService;
@@ -57,7 +58,7 @@ public class UsersController {
 
     @DeleteMapping(path = "/user/logout", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity logoutUser(
-            @RequestParam(name = "authorization",required = true) String token
+            @RequestHeader(name = "authorization",required = true) String token
     ) {
         if (!securityService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -80,22 +81,19 @@ public class UsersController {
 
     @PutMapping(path = "/edit/user", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity editUser(
-            final @RequestParam(name = "authorization",required = true) String token,
-            final @RequestParam(name = "userName",required = false) String name,
-            final @RequestParam(name = "about",required = false) String about,
-            final @RequestParam(name = "user_id",required = true) String id,
-            final @RequestParam(name = "avatar",required = false) ImageDTO avatar
-    ) {
+            final @RequestHeader(name = "authorization",required = true) String token,
+            final @RequestBody (required = true)UserUpdateRequest userUpdateRequest
+            ) {
 
         if (!securityService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
         }
-        Optional<User> user = usersService.findUserById(id);
+        Optional<User> user = usersService.findUserById(userUpdateRequest.getId());
         if (!user.isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("There is no user with this id");
         }
 
-            User editedUser = usersService.updateUser(name, about, user.get(), avatar);
+            User editedUser = usersService.updateUser(userUpdateRequest.getName(), userUpdateRequest.getAbout(), user.get(), userUpdateRequest.getAvatar());
             return ResponseEntity.ok().body(usersService.getUserGeneralInformation(editedUser));
 
 
@@ -104,7 +102,7 @@ public class UsersController {
 
     @PutMapping(path = "/edit/user/password", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity editUserPassword(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             final @RequestBody(required = true) UserPasswordChangeRequest userPasswordChangeRequest
     ) {
         if (!securityService.validateToken(token)) {
@@ -122,7 +120,7 @@ public class UsersController {
 
     @GetMapping(path = "/find/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findAllUsers(
-            final @RequestParam(name = "authorization",required = true) String token
+            final @RequestHeader(name = "authorization",required = true) String token
     ) {
         if (!securityService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -136,8 +134,8 @@ public class UsersController {
 
     @GetMapping(path = "/find/id", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity findById(
-            final @RequestParam(name = "authorization",required = true) String token,
-            final @RequestParam(name = "user_id", required = true) String userId) {
+            final @RequestHeader(name = "authorization",required = true) String token,
+            final @RequestParam(name = "userId", required = true) String userId) {
         if (!securityService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
         }
@@ -151,8 +149,8 @@ public class UsersController {
 
     @GetMapping(path = "/user/dashboard/summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getDashboardSummary(
-            final @RequestParam(name = "authorization",required = true) String token,
-            @RequestParam(name = "user_id", required = true) String userId
+            final @RequestHeader(name = "authorization",required = true) String token,
+            @RequestParam(name = "userId", required = true) String userId
     ) {
         if (!securityService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");
@@ -169,7 +167,7 @@ public class UsersController {
 
     @GetMapping(path = "/user/badges/summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getUserBadgesSummary(
-            final @RequestParam(name = "authorization",required = true) String token,
+            final @RequestHeader(name = "authorization",required = true) String token,
             @RequestParam(name = "userRole", required = true) UserRole userRole
     ) {
         if (!securityService.validateToken(token)) {
@@ -186,8 +184,8 @@ public class UsersController {
 
     @GetMapping(path = "/user/general/info", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getUserGeneralDetails(
-            final @RequestParam(name = "authorization", required = true) String token,
-            @RequestParam(name = "user_id", required = true) String userId
+            final @RequestHeader(name = "authorization", required = true) String token,
+            @RequestParam(name = "userId", required = true) String userId
     ) {
         if (!securityService.validateToken(token)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Token");

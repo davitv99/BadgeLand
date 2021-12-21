@@ -15,7 +15,7 @@ import java.io.Serializable;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-public class UserCreationRequest implements Serializable {
+public class UserCreationRequest{
 
     private String name;
 

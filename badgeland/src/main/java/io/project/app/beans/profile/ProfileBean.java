@@ -4,6 +4,7 @@ import io.project.app.dto.ImageDTO;
 import io.project.app.dto.UserGeneralInfoDTO;
 import io.project.app.http.clients.account.ProfileUpdateClient;
 import io.project.app.requests.UserPasswordChangeRequest;
+import io.project.app.requests.UserUpdateRequest;
 import io.project.app.security.SessionContext;
 import org.apache.log4j.Logger;
 import org.primefaces.model.file.UploadedFile;
@@ -65,14 +66,20 @@ public class ProfileBean implements Serializable {
     }
 
     public String updateProfile() {
+        UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
+        userUpdateRequest.setName( userModel.getName());
+        userUpdateRequest.setAbout(userModel.getAbout());
+        userUpdateRequest.setId(userModel.getId());
+
         ImageDTO imageDTO = new ImageDTO();
         if(userAvatar != null){
             imageDTO.setContentType(userAvatar.getContentType());
             imageDTO.setFileContent(userAvatar.getContent());
             imageDTO.setFileSize(userAvatar.getSize());
+            userUpdateRequest.setAvatar(imageDTO);
         }
 
-        UserGeneralInfoDTO updateProfile = profileUpdateClient.updateAccountProfile(userModel.getId(), userModel.getAbout(), userModel.getName(), imageDTO);
+        UserGeneralInfoDTO updateProfile = profileUpdateClient.updateAccountProfile(userUpdateRequest);
         if (updateProfile.getEmail() != null) {
             sessionContext.getUser().setName(updateProfile.getName());
             FacesMessage msg = new FacesMessage("System message", "Profile updated");

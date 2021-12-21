@@ -10,7 +10,7 @@
     <ui:define name="content">
         <p:growl/>
         <style>
-            .badges-summary{
+            .badges-summary {
 
                 font-style: normal;
                 font-weight: bold;
@@ -34,43 +34,45 @@
             .boy {
                 background-image: url("#{resource['dashboard/dashboard-boy.png']}");
                 justify-content: center;
-                width: 95%;
+                background-size: cover;
             }
 
             .girl {
                 background-image: url("#{resource['dashboard/dashboard-girl.png']}");
                 justify-content: center;
-                width: 95%;
+                background-size: cover;
+
             }
 
             .greeting {
-
+                padding-left: 2%;
+                padding-top: 2%;
                 font-style: normal;
                 font-weight: bold;
                 font-size: 40px;
                 line-height: 54px;
                 letter-spacing: 1px;
-                color: black;
+                color: white;
             }
 
             .introduction {
-
-
                 font-style: normal;
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 22px;
-                /* identical to box height */
                 letter-spacing: 1px;
-
-                color: black;
+                padding-left: 2%;
+                padding-bottom: 22.7%;
+                color: white;
             }
-            .badge-status-summary{
+
+            .badge-status-summary {
                 border-radius: 10px;
                 width: 316px;
                 height: 100px;
             }
-            .badge-number{
+
+            .badge-number {
                 background: #FFFFFF;
                 border-radius: 10px;
                 width: 80px;
@@ -79,7 +81,7 @@
             }
 
         </style>
-        <h:form id="dashboard" enctype="multipart/form-data" prependId="false">
+        <h:body id="dashboard" enctype="multipart/form-data" prependId="false">
             <div>
                 <h1 class="title">Dashboard</h1>
             </div>
@@ -90,39 +92,50 @@
                     <h2 class="introduction">Ready to start your day with a new badge?</h2>
                 </h:form>
                 <h:form styleClass="girl" rendered="#{sessionContext.user.gender == 'Female'}">
+                    <h1 class="greeting">Hi, #{sessionContext.user.name}</h1>
+                    <br/>
+                    <h2 class="introduction">Ready to start your day with a new badge?</h2>
                 </h:form>
             </div>
-
             <div>
                 <h1 class="badges-summary">Badges</h1>
-                <div class="badge-status-summary" style="background: #1ED392">
-                    <div><h1 style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">RECEIVED</h1>
+            </div>
+            <div class="p-grid" style="padding: 2rem">
+                <div class="badge-status-summary p-grid" style="background: #1ED392; width: 30%">
+                    <div style="align-self: center"><h1
+                            style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">RECEIVED</h1>
                     </div>
-                    <div class="badge-number">#{dashboardBean.dashboardSummary.receivedBadges}</div>
-
-                </div>
-
-                <div>
-                </div>
-
-                <div class="badge-status-summary" style="background: #FFAA2E">
-                    <div><h1 style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">PENDING</h1>
+                    <div style="align-self: center; justify-content:end ">
+                        <div class="badge-number">#{dashboardBean.dashboardSummary.receivedBadges}</div>
                     </div>
-                    <div class="badge-number">#{dashboardBean.dashboardSummary.pendingBadges}</div>
-
+                </div>
+                <div style="width: 5%">
                 </div>
 
-                <div >
-                </div>
-
-                <div class="badge-status-summary" style="background: #F8174D">
-                    <div><h1 style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">REJECTED</h1>
+                <div class="badge-status-summary p-grid" style="background: #FFAA2E; width: 30%">
+                    <div style="align-self: center"><h1
+                            style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">PENDING</h1>
                     </div>
-                    <div class="badge-number">#{dashboardBean.dashboardSummary.rejectedBadges}</div>
+                    <div style="align-self: center; justify-content:end ">
+                        <div class="badge-number">#{dashboardBean.dashboardSummary.pendingBadges}</div>
+                    </div>
+
+                </div>
+
+                <div style="width: 5%">
+                </div>
+
+                <div class="badge-status-summary p-grid" style="background: #F8174D;width: 30%">
+                    <div style="align-self: center"><h1
+                            style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">REJECTED</h1>
+                    </div>
+                    <div style="align-self: center; justify-content:end ">
+                        <div class="badge-number">#{dashboardBean.dashboardSummary.rejectedBadges}</div>
+                    </div>
                 </div>
 
             </div>
-        </h:form>
+        </h:body>
 
 
     </ui:define>

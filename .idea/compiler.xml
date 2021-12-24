@@ -6,14 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="chat" />
-        <module name="main" />
         <module name="badgeland" />
+        <module name="main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="BadgeLand" target="1.5" />
-      <module name="badges" target="1.8" />
+      <module name="chat" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

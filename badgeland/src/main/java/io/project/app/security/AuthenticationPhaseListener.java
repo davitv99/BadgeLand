@@ -44,11 +44,11 @@ public class AuthenticationPhaseListener implements PhaseListener {
                 return;
             }
 
-            if (sessionContext.getUser().getId() == null && !viewId.contains("index.xhtml") || !Objects.requireNonNull(permissions).contains("LOGGED")) {
+            if (sessionContext.getUser().getId() == null && !viewId.contains("login.xhtml") || !Objects.requireNonNull(permissions).contains("LOGGED")) {
                 System.out.println("ViewId  " + viewId);
                 System.out.println("permissions  " + permissions);
-                System.out.println("URL  " + ex.getRequestContextPath() + "/index.jsf?illegalAccess");
-                ex.redirect(ex.getRequestContextPath() + "/index.jsf?illegalAccess");
+                System.out.println("URL  " + ex.getRequestContextPath() + "/login.jsf?illegalAccess");
+                ex.redirect(ex.getRequestContextPath() + "/login.jsf?illegalAccess");
 
             }
         } catch (IOException | ELException ex1) {

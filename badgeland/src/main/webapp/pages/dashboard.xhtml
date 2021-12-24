@@ -32,13 +32,13 @@
             }
 
             .boy {
-                background-image: url("#{resource['dashboard/dashboard-boy.png']}");
+                background-image: url("#{resource['dashboard/dashboard-boy.jpg']}");
                 justify-content: center;
                 background-size: cover;
             }
 
             .girl {
-                background-image: url("#{resource['dashboard/dashboard-girl.png']}");
+                background-image: url("#{resource['dashboard/dashboard-girl.jpg']}");
                 justify-content: center;
                 background-size: cover;
 
@@ -69,16 +69,32 @@
             .badge-status-summary {
                 border-radius: 10px;
                 width: 316px;
-                height: 100px;
+                height: 125px;
             }
 
-            .badge-number {
+            .badge-number-box {
                 background: #FFFFFF;
                 border-radius: 10px;
                 width: 80px;
                 height: 80px;
 
             }
+            .badge-number {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 40px;
+                line-height: 54px;
+                text-align: center;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+
+
+
+
+
+
 
         </style>
         <h:body id="dashboard" enctype="multipart/form-data" prependId="false">
@@ -101,23 +117,27 @@
                 <h1 class="badges-summary">Badges</h1>
             </div>
             <div class="p-grid" style="padding: 2rem">
-                <div class="badge-status-summary p-grid" style="background: #1ED392; width: 30%">
-                    <div style="align-self: center"><h1
-                            style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">RECEIVED</h1>
+                <div class="badge-status-summary p-grid" style="background: #1ED392; width: 30%;margin-right: 2rem;">
+                    <div style="align-self: center;padding-left: 15px;font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;width: 30%">
+                    RECEIVED
                     </div>
-                    <div style="align-self: center; justify-content:end ">
-                        <div class="badge-number">#{dashboardBean.dashboardSummary.receivedBadges}</div>
+                    <div style="width: 50%"></div>
+
+                    <div style="align-self: center; justify-content:end;width: 20% ">
+                        <div class="badge-number-box"><div class="badge-number" style="color: #1ED392">#{dashboardBean.dashboardSummary.receivedBadges}</div></div>
                     </div>
                 </div>
                 <div style="width: 5%">
                 </div>
 
-                <div class="badge-status-summary p-grid" style="background: #FFAA2E; width: 30%">
-                    <div style="align-self: center"><h1
-                            style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">PENDING</h1>
+                <div class="badge-status-summary p-grid" style="background: #FFAA2E; width: 30%;margin-right: 2rem;">
+                    <div style="align-self: center;padding-left: 15px;font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;width: 30%">
+                        PENDING
                     </div>
-                    <div style="align-self: center; justify-content:end ">
-                        <div class="badge-number">#{dashboardBean.dashboardSummary.pendingBadges}</div>
+                    <div style="width: 50%"></div>
+
+                    <div style="align-self: center; justify-content:end;width: 20% ">
+                        <div class="badge-number-box"><div class="badge-number" style="color: #FFAA2E">#{dashboardBean.dashboardSummary.pendingBadges}</div></div>
                     </div>
 
                 </div>
@@ -125,12 +145,13 @@
                 <div style="width: 5%">
                 </div>
 
-                <div class="badge-status-summary p-grid" style="background: #F8174D;width: 30%">
-                    <div style="align-self: center"><h1
-                            style="font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF;">REJECTED</h1>
+                <div class="badge-status-summary p-grid" style="background: #F8174D;width: 30%;">
+                    <div style="align-self: center;padding-left: 15px;font-style: normal;font-weight: bold;font-size: 24px;line-height: 33px;letter-spacing: 1px;color: #FFFFFF; width: 30%">
+                        REJECTED
                     </div>
-                    <div style="align-self: center; justify-content:end ">
-                        <div class="badge-number">#{dashboardBean.dashboardSummary.rejectedBadges}</div>
+                    <div style="width: 50%"></div>
+                    <div style="align-self: center; justify-content:end;width: 20% ">
+                        <div class="badge-number-box"><div class="badge-number" style="color: #F8174D">#{dashboardBean.dashboardSummary.rejectedBadges}</div></div>
                     </div>
                 </div>
 
